@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- React -->
+<script src="bower_components/react/react.min.js"></script>
+<script src="bower_components/react/react-dom.min.js"></script>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDVEC5PjWrK_pbRLCOx4Ea37vQ3pMn5Mp8",
+    authDomain: "shelterassist-56940.firebaseapp.com",
+    databaseURL: "https://shelterassist-56940.firebaseio.com",
+    storageBucket: "shelterassist-56940.appspot.com",
+    messagingSenderId: "607827230456"
+  };
+firebase.initializeApp(config);
+</script>
+<!-- ReactFire -->
+<script src="bower_components/reactfire/dist/reactfire.min.js"></script>
+
+</head>
+<body>
+  <h1>ShelterAssist</h1>
+  <div id="demoContainer">
+    <div id="todoApp"></div>
+  </div>
+<script src="build/main.js"></script>
+</body>
+</html>
