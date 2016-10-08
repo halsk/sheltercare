@@ -30,7 +30,7 @@ var TodoApp = React.createClass({
 
   componentWillMount: function() {
     var firebaseRef = firebase.database().ref('/items');
-    this.bindAsArray(firebaseRef.limitToLast(25), 'items');
+    this.bindAsArray(firebaseRef, 'items');
   },
 
   onChange: function(e) {
@@ -42,18 +42,6 @@ var TodoApp = React.createClass({
     firebaseRef.child(key).remove();
   },
 
-  handleSubmit: function(e) {
-    e.preventDefault();
-    if (this.state.text && this.state.text.trim().length !== 0) {
-      this.firebaseRefs['items'].push({
-        text: this.state.text
-      });
-      this.setState({
-        text: ''
-      });
-    }
-  },
-
   render: function() {
     return (
       <div>
@@ -61,12 +49,6 @@ var TodoApp = React.createClass({
 
       </div>
     );
-        /*
-        <form onSubmit={ this.handleSubmit }>
-          <input onChange={ this.onChange } value={ this.state.text } />
-          <button>{ 'Add #' + (this.state.items.length + 1) }</button>
-        </form>
-        */
   }
 });
 
