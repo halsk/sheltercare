@@ -5,7 +5,7 @@ var TodoList = React.createClass({
     var createItem = function(item, index) {
       return (
         <li key={ index }>
-          { item.text }
+          { item.gender } | {item.age}
           <span onClick={ _this.props.removeItem.bind(null, item['.key']) }
                 style={{ color: 'red', marginLeft: '10px', cursor: 'pointer' }}>
             X
@@ -23,7 +23,8 @@ var TodoApp = React.createClass({
   getInitialState: function() {
     return {
       items: [],
-      text: ''
+      gender: '',
+      age:0
     };
   },
 
@@ -37,7 +38,7 @@ var TodoApp = React.createClass({
   },
 
   removeItem: function(key) {
-    var firebaseRef = firebase.database().ref('todoApp/items');
+    var firebaseRef = firebase.database().ref('/items');
     firebaseRef.child(key).remove();
   },
 
@@ -57,12 +58,15 @@ var TodoApp = React.createClass({
     return (
       <div>
         <TodoList items={ this.state.items } removeItem={ this.removeItem } />
+
+      </div>
+    );
+        /*
         <form onSubmit={ this.handleSubmit }>
           <input onChange={ this.onChange } value={ this.state.text } />
           <button>{ 'Add #' + (this.state.items.length + 1) }</button>
         </form>
-      </div>
-    );
+        */
   }
 });
 
