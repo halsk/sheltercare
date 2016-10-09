@@ -5,7 +5,7 @@
   firebaseRef = firebase.database().ref('/items');
 
   firebaseRef.orderByChild('gender').once('value').then(function(snapshot) {
-    var i, j, mf_numbers, pyramid_f, pyramid_m, ref;
+    var i, j, maxval, mf_numbers, pyramid_f, pyramid_m, ref;
     mf_numbers = [
       {
         'gender': 'male',
@@ -50,11 +50,15 @@
       }
     });
     updateMFChart(mf_numbers);
-    updatePyramid(pyramid_f, 'female');
-    return updatePyramid(pyramid_m, 'male');
+    maxval = d3.max(pyramid_f.concat(pyramid_m), function(d) {
+      return d.value;
+    });
+    console.log(maxval);
+    updatePyramid(pyramid_f, maxval, 'female');
+    return updatePyramid(pyramid_m, maxval, 'male');
   });
 
-  svgW = 300;
+  svgW = 600;
 
   svgH = 200;
 
@@ -66,23 +70,21 @@
 
   xMargin = 60;
 
-  updatePyramid = function(dataSet, type) {
-    var barchart, fill, scale, svg, xAxis, xAxisCall, xfunc;
+  updatePyramid = function(dataSet, maxval, type) {
+    var axscale, barchart, fill, scale, svg, xAxis, xAxisCall, xfunc;
     svg = svgr;
     fill = 'red';
     xfunc = 0;
+    axscale = d3.scale.linear().domain([0, maxval]).range([0, svgW2]);
     if (type === 'male') {
       fill = 'blue';
       svg = svgl;
       xfunc = function(d) {
         return svgW2 - scale(d.value);
       };
+      axscale = d3.scale.linear().domain([0, maxval]).range([svgW2, 0]);
     }
-    scale = d3.scale.linear().domain([
-      0, d3.max(dataSet, function(d) {
-        return d.value;
-      })
-    ]).range([0, svgW2]);
+    scale = d3.scale.linear().domain([0, maxval]).range([0, svgW2]);
     barchart = svg.selectAll('rect').data(dataSet).enter().append('rect').attr({
       x: xfunc,
       y: function(d, i) {
@@ -94,7 +96,7 @@
       height: 2,
       fill: fill
     });
-    xAxisCall = d3.svg.axis().scale(scale).orient('bottom');
+    xAxisCall = d3.svg.axis().scale(axscale).orient('bottom');
     return xAxis = svg.append('g').attr({
       "class": "axis",
       "transform": "translate(" + [0, 0] + ")"
@@ -108,7 +110,7 @@
       0, d3.max(dataSet, function(d) {
         return d.value;
       })
-    ]).range([0, svgH]);
+    ]).range([0, svgW - xMargin]);
     barchart = svg.selectAll('rect').data(dataSet).enter().append('rect').attr({
       x: xMargin,
       y: function(d, i) {

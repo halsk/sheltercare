@@ -25,27 +25,35 @@ firebaseRef.orderByChild('gender').once('value')
           pyramid_f[index]['value'] += 1
         console.log(child.val())
     updateMFChart(mf_numbers)
-    updatePyramid(pyramid_f, 'female')
-    updatePyramid(pyramid_m, 'male')
+    maxval = d3.max(pyramid_f.concat(pyramid_m), (d)-> d.value )
+    console.log(maxval)
+    updatePyramid(pyramid_f, maxval, 'female')
+    updatePyramid(pyramid_m, maxval, 'male')
 
-svgW = 300
+svgW = 600
 svgH = 200
 svgW2 = 300
 svgH2 = 500
 yMargin = 50
 xMargin = 60
 
-updatePyramid = (dataSet, type) ->
+updatePyramid = (dataSet, maxval, type) ->
   svg = svgr
   fill = 'red'
   xfunc = 0
+  axscale = d3.scale.linear()
+  .domain([0, maxval])
+  .range([0, svgW2]);
   if (type == 'male')
     fill = 'blue'
     svg = svgl
     xfunc = (d) -> svgW2 - scale(d.value)
+    axscale = d3.scale.linear()
+    .domain([0, maxval])
+    .range([svgW2, 0]);
 
   scale = d3.scale.linear()
-  .domain([0, d3.max(dataSet, (d)-> d.value )])
+  .domain([0, maxval])
   .range([0, svgW2]);
 
   barchart = svg.selectAll('rect')
@@ -61,7 +69,7 @@ updatePyramid = (dataSet, type) ->
 	 });
 
   xAxisCall = d3.svg.axis()
-	  .scale(scale)
+	  .scale(axscale)
 	  .orient('bottom')
 
   xAxis = svg.append('g')
@@ -76,7 +84,7 @@ updateMFChart = (dataSet) ->
   console.log('##updatechart')
   scale = d3.scale.linear()
   .domain([0, d3.max(dataSet, (d)-> d.value )])
-  .range([0, svgH]);
+  .range([0, svgW - xMargin]);
 
   barchart = svg.selectAll('rect')
 	 .data(dataSet)
