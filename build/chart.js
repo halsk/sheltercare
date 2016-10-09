@@ -34,7 +34,7 @@
 
   yMargin = 50;
 
-  xMargin = 10;
+  xMargin = 60;
 
   updateMFChart = function(dataSet) {
     var barchart, scale, xAxis, xAxisCall;
@@ -57,10 +57,12 @@
       fill: "blue"
     });
     xAxisCall = d3.svg.axis().scale(scale).orient('bottom');
-    return xAxis = svg.append('g').attr({
+    xAxis = svg.append('g').attr({
       "class": "axis",
       "transform": "translate(" + [xMargin, 0] + ")"
     }).call(xAxisCall);
+    svg.append("text").attr("x", 10).attr("y", 65).style("tex t-anchor", "middle").text("男性");
+    return svg.append("text").attr("x", 10).attr("y", 95).style("tex t-anchor", "middle").text("女性");
   };
 
   svg = d3.select("body").append("svg").attr("width", svgW).attr("height", svgH);

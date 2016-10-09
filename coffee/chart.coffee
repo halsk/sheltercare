@@ -20,7 +20,7 @@ firebaseRef.orderByChild('gender').once('value')
 svgW = 300
 svgH = 200
 yMargin = 50
-xMargin = 10
+xMargin = 60
 
 updateMFChart = (dataSet) ->
   console.log('##updatechart')
@@ -51,6 +51,18 @@ updateMFChart = (dataSet) ->
 		   "transform": "translate(" + [xMargin, 0] + ")"
 	   })
 	    .call(xAxisCall);
+
+  svg.append("text")
+    .attr("x", 10 )
+    .attr("y", 65)
+    .style("tex t-anchor", "middle")
+    .text("男性");
+
+  svg.append("text")
+    .attr("x", 10 )
+    .attr("y", 95)
+    .style("tex t-anchor", "middle")
+    .text("女性");
 
 svg= d3.select("body").append("svg")
   .attr("width", svgW)
