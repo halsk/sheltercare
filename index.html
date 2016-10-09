@@ -1,8 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap Sample</title>
+    <!-- BootstrapのCSS読み込み -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery読み込み -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- BootstrapのJS読み込み -->
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
 
 <!-- React -->
 <script src="bower_components/react/react.min.js"></script>
@@ -26,12 +35,62 @@ firebase.initializeApp(config);
 
 </head>
 <body>
-  <h1>ShelterCare</h1>
-  <p>あなたの避難所運営をお助けします</p>
-  <img src="images/hinanjo_seikatsu_family_smile.png" width="300"/>
-  <div id="graphContainer"></div>
-  <div id="demoContainer">
-    <div id="todoApp"></div>
+  <div class="container">
+    <h1>ShelterCare</h1>
+    <p>あなたの避難所運営をお助けします</p>
+    <div class="row">
+      <div class="pull-left">
+        <img src="images/hinanjo_seikatsu_family_smile.png" width="300"/>
+      </div>
+      <h2>ワンポイントアドバイス</h2>
+      <div>避難所運営マニュアルが未読の場合、読んでみましょう！　<a href="uneimanual.pdf">マニュアルはこちら</a></div>
+    </div>
+    <div class="row">
+      <h2>男女比</h2>
+      <div id="mfChartContainer"></div>
+    </div>
+    <div class="row">
+      <h2>人口構成</h2>
+      <div id="pyramidChartContainer"></div>
+    </div>
+    <div class="row">
+      <h2>避難所の状況に基づいたアドバイス</h2>
+      <!-- １日の目安 -->
+      <h3>1日に必要な物資の目安</h3>
+      現状の人口構成を考えると、以下の物資が必要となる可能性が高いです。在庫を確認しておきましょう。
+      <div  class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>物資</th>
+              <th>数量</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>水</td>
+              <td>100リットル</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>食事</td>
+              <td>45,468食</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>ラップ（食品ラップ）</td>
+              <td>89個</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <div id="demoContainer" class="row">
+      <h2>ログ(debug用)</h2>
+      <div id="todoApp"></div>
+    </div>
   </div>
 <script src="build/main.js"></script>
 <script src="build/chart.js"></script>
