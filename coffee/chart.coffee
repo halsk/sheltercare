@@ -19,12 +19,14 @@ firebaseRef.orderByChild('gender').once('value')
 
 svgW = 300
 svgH = 200
+yMargin = 50
+xMargin = 10
 
 updateMFChart = (dataSet) ->
   console.log('##updatechart')
   console.log(dataSet)
   scale = d3.scale.linear()
-  .domain([0, d3.max(dataSet, (d)-> console.log(d.value); d.value )])
+  .domain([0, d3.max(dataSet, (d)-> d.value )])
   .range([0, svgH]);
 
   barchart = svg.selectAll('rect')
@@ -32,12 +34,23 @@ updateMFChart = (dataSet) ->
 	 .enter()
 	 .append('rect')
 	 .attr({
-	 	x: 0,
-	 	y: (d, i)-> i * 30 ,
-	 	width: (d)-> console.log(d.value);scale(d.value) ,
+	 	x: xMargin,
+	 	y: (d, i)-> i * 30 + yMargin,
+	 	width: (d)-> scale(d.value) ,
 	 	height: 20,
 	 	fill: "blue"
 	 });
+
+  xAxisCall = d3.svg.axis()
+	  .scale(scale)
+	  .orient('bottom')
+
+  xAxis = svg.append('g')
+	 .attr({
+		   "class": "axis",
+		   "transform": "translate(" + [xMargin, 0] + ")"
+	   })
+	    .call(xAxisCall);
 
 svg= d3.select("body").append("svg")
   .attr("width", svgW)

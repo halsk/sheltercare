@@ -1,1 +1,8 @@
 .bar { fill: steelblue; }
+.axis path, .axis line{
+    fill:none;
+    stroke:black;
+}
+.axis text {
+    fill:black;
+}
