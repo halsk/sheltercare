@@ -23,7 +23,7 @@ svgH = 200
 updateMFChart = (dataSet) ->
   console.log('##updatechart')
   console.log(dataSet)
-  scale = d3.scaleLinear()
+  scale = d3.scale.linear()
   .domain([0, d3.max(dataSet, (d)-> console.log(d.value); d.value )])
   .range([0, svgH]);
 

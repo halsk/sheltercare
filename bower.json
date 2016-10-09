@@ -16,7 +16,6 @@
     "tests"
   ],
   "dependencies": {
-    "reactfire": "^1.0.0",
-    "d3": "^4.2.6"
+    "reactfire": "^1.0.0"
   }
 }

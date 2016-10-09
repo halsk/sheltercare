@@ -36,7 +36,7 @@
     var barchart, scale;
     console.log('##updatechart');
     console.log(dataSet);
-    scale = d3.scaleLinear().domain([
+    scale = d3.scale.linear().domain([
       0, d3.max(dataSet, function(d) {
         console.log(d.value);
         return d.value;
