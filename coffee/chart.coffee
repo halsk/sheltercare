@@ -1,7 +1,19 @@
 firebaseRef = firebase.database().ref('/items');
-firebaseRef.orderByChild('gender').equalTo('Male').once('value')
+firebaseRef.orderByChild('gender').once('value')
   .then (snapshot) ->
-    console.log(snapshot.numChildren())
+    updateChart(snapshot.exportVal())
+    mf_numbers = [0,0]
+    snapshot.forEach (child) ->
+      if child.val()['gender'] == 'Male'
+        mf_numbers[0] += 1
+      else if child.val()['gender'] == 'Female'
+        mf_numbers[1] += 1
+      console.log(child.val())
+    console.log(mf_numbers)
+
+updateChart = (data) ->
+  console.log('##updatechart')
+  console.log(data)
 
 theData = [ 1, 2, 3 ]
 p = d3.select("body").selectAll("p.data")
