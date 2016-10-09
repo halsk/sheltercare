@@ -53,7 +53,6 @@
     maxval = d3.max(pyramid_f.concat(pyramid_m), function(d) {
       return d.value;
     });
-    console.log(maxval);
     updatePyramid(pyramid_f, maxval, 'female');
     return updatePyramid(pyramid_m, maxval, 'male');
   });
@@ -142,12 +141,12 @@
     return svg.append("text").attr("x", 10).attr("y", 95).text("女性");
   };
 
-  svg = d3.select("body").append("svg").attr("width", svgW).attr("height", svgH);
+  svg = d3.select("#graphContainer").append("svg").attr("width", svgW).attr("height", svgH);
 
-  d3.select("body").append("div");
+  d3.select("#graphContainer").append("div");
 
-  svgl = d3.select("body").append("svg").attr("width", svgW2).attr("height", svgH2).style('margin-left', 20);
+  svgl = d3.select("#graphContainer").append("svg").attr("width", svgW2).attr("height", svgH2).style('margin-left', 20);
 
-  svgr = d3.select("body").append("svg").attr("width", svgW2 + xMargin2).attr("height", svgH2);
+  svgr = d3.select("#graphContainer").append("svg").attr("width", svgW2 + xMargin2).attr("height", svgH2);
 
 }).call(this);
