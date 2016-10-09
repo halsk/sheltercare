@@ -36,11 +36,13 @@ svgW2 = 300
 svgH2 = 500
 yMargin = 50
 xMargin = 60
+xMargin2 = 80
 
 updatePyramid = (dataSet, maxval, type) ->
   svg = svgr
   fill = 'red'
-  xfunc = 0
+  marginLeft = xMargin2
+  xfunc = marginLeft
   axscale = d3.scale.linear()
   .domain([0, maxval])
   .range([0, svgW2]);
@@ -51,6 +53,7 @@ updatePyramid = (dataSet, maxval, type) ->
     axscale = d3.scale.linear()
     .domain([0, maxval])
     .range([svgW2, 0]);
+    marginLeft = 0
 
   scale = d3.scale.linear()
   .domain([0, maxval])
@@ -75,9 +78,19 @@ updatePyramid = (dataSet, maxval, type) ->
   xAxis = svg.append('g')
 	 .attr({
 		   "class": "axis",
-		   "transform": "translate(" + [0, 0] + ")"
+		   "transform": "translate(" + [marginLeft, 0] + ")",
 	   })
 	    .call(xAxisCall);
+
+  if (type == 'female')
+    for i in [11 - 1..0] by -1
+      svg.append("text")
+        .attr("x", 40 )
+        .attr("width", 100)
+        .attr("y", (400 + yMargin) - (i * 41) )
+        .style("text-anchor", "middle")
+        .text(i * 10);
+
 
 
 updateMFChart = (dataSet) ->
@@ -126,7 +139,7 @@ d3.select("body").append("div")
 svgl= d3.select("body").append("svg")
   .attr("width", svgW2)
   .attr("height", svgH2)
-svgr= d3.select("body").append("svg")
-  .attr("width", svgW2)
-  .attr("height", svgH2)
   .style('margin-left', 20)
+svgr= d3.select("body").append("svg")
+  .attr("width", svgW2 + xMargin2)
+  .attr("height", svgH2)
