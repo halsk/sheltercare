@@ -130,7 +130,13 @@
         return scale(d.value);
       },
       height: 20,
-      fill: "blue"
+      fill: function(d) {
+        if (d.gender === 'female') {
+          return "red";
+        } else {
+          return "blue";
+        }
+      }
     });
     xAxisCall = d3.svg.axis().scale(scale).orient('bottom');
     xAxis = svg.append('g').attr({

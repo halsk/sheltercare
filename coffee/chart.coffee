@@ -118,7 +118,7 @@ updateMFChart = (dataSet) ->
 	 	y: (d, i)-> i * 30 + yMargin,
 	 	width: (d)-> scale(d.value) ,
 	 	height: 20,
-	 	fill: "blue"
+	 	fill: (d) -> if d.gender == 'female' then "red" else "blue"
 	 });
 
   xAxisCall = d3.svg.axis()
